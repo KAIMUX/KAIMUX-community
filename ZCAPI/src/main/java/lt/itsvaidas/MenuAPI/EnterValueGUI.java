@@ -4,7 +4,6 @@ import lt.itsvaidas.MenuAPI.geyser.elements.Input;
 import lt.itsvaidas.MenuAPI.geyser.forms.CustomForm;
 import lt.itsvaidas.MenuAPI.interfaces.IEnteredValueAction;
 import lt.itsvaidas.MessagesAPI.MSG;
-import lt.itsvaidas.MessagesAPI.MessagesAPI;
 import lt.itsvaidas.ZCAPI.Main;
 import lt.itsvaidas.ZCAPI.builders.BItem;
 import net.kyori.adventure.text.Component;
@@ -29,14 +28,13 @@ public class EnterValueGUI implements Listener {
     private static final FloodgateApi floodgateApi = FloodgateApi.getInstance();
     private static final Map<Player, IEnteredValueAction> actions = new HashMap<>();
 
-    public static void open(Player player, Enum<?> title, Component placeholder, IEnteredValueAction action) {
+    public static void open(Player player, String title, Component placeholder, IEnteredValueAction action) {
         if (floodgateApi.isFloodgatePlayer(player.getUniqueId())) {
             player.closeInventory();
 
-            String inputTitle = MessagesAPI.getString(player, title);
             String inputPlaceholder = MSG.plain(placeholder);
             CustomForm form = CustomForm.of(
-                MessagesAPI.getString(player, title),
+                    title,
                 (values) -> {
                     String value = (String) values.get("value");
                     Component response = action.onEnteredValue(value);
@@ -46,13 +44,13 @@ public class EnterValueGUI implements Listener {
                     }
                 },
                 () -> true,
-                Input.of("value", inputTitle, inputPlaceholder)
+                Input.of("value", title, inputPlaceholder)
             );
 
             Bukkit.getScheduler().runTaskLater(Main.getInstance(), () ->
             floodgateApi.sendForm(player.getUniqueId(), form.build(floodgateApi, player)), 20L);
         } else {
-            AnvilView view = MenuType.ANVIL.create(player, MSG.rawLine(player, title));
+            AnvilView view = MenuType.ANVIL.create(player, title);
             view.setItem(0, BItem.b(Material.PAPER, placeholder).build());
             view.setRepairItemCountCost(0);
             view.setRepairCost(0);

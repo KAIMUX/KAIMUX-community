@@ -1,6 +1,5 @@
 package lt.itsvaidas.ZCAPI;
 
-import lt.itsvaidas.MessagesAPI.MessagesAPI;
 import me.clip.placeholderapi.PlaceholderAPI;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.entity.Player;
@@ -30,11 +29,6 @@ public class RegisterPlaceholders {
 	
 				@Override
 				public String onPlaceholderRequest(Player p, String params) {
-					if (p != null) {
-						if (params.equalsIgnoreCase("lang")) {
-							return MessagesAPI.getLanguage(p).name().toUpperCase();
-						}
-					}
 					return null;
 				}
 			};

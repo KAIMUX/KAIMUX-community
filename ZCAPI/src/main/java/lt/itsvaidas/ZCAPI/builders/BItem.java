@@ -131,36 +131,8 @@ public class BItem {
         return new BItem(material, name, lore);
     }
 
-    public static BItem b(@NotNull Player p, @NotNull Material material, @Nullable Component name, Enum<?> lore, Object... args) {
-        return new BItem(material, name, MSG.rawList(p, lore, args));
-    }
-
     public static BItem b(ItemStack item) {
         return new BItem(item.getType(), item.displayName(), item.lore()).amount(item.getAmount());
-    }
-
-    public static BItem b(@NotNull Player p, @NotNull Material material, @Nullable Enum<?> name, Object... args) {
-        return new BItem(material, MSG.rawLine(p, name, args), null);
-    }
-
-    public static BItem b(@NotNull Player p, @NotNull Material material, @Nullable Enum<?> name, @Nullable List<String> lore) {
-        return new BItem(material, MSG.rawLine(p, name), MSG.raw(lore));
-    }
-
-    public static BItem b(@NotNull Player p, @NotNull Material material, @Nullable Enum<?> name, @Nullable Enum<?> lore, Object... args) {
-        return new BItem(material, MSG.rawLine(p, name, args), MSG.rawList(p, lore, args));
-    }
-
-    public static BItem b(@NotNull Player p, @NotNull Material material, @Nullable Enum<?> name, @Nullable List<Component> lore, Object... args) {
-        return new BItem(material, MSG.rawLine(p, name, args), lore);
-    }
-
-    public static BItem b(@NotNull Player p, @NotNull Material material, @Nullable String name, @Nullable Enum<?> lore, Object... args) {
-        return new BItem(material, MSG.raw(name), MSG.rawList(p, lore, args));
-    }
-
-    public static BItem b(@NotNull Player p, @NotNull ItemStack item, @Nullable Enum<?> name, @Nullable Enum<?> lore, Object... args) {
-        return new BItem(item.getType(), MSG.rawLine(p, name, args), MSG.rawList(p, lore, args)).amount(item.getAmount());
     }
 }
 

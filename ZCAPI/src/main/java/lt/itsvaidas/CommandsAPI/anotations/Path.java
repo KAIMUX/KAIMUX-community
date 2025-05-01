@@ -11,6 +11,5 @@ public @interface Path {
     String path() default "";
     String permission() default "";
     String description();
-    boolean translatable() default false;
     Argument[] arguments() default {};
 }

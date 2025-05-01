@@ -1,14 +1,10 @@
 package lt.itsvaidas.ZCAPI;
 
-import lt.itsvaidas.MessagesAPI.anotations.Translatable;
-import lt.itsvaidas.MessagesAPI.interfaces.TranslatableLore;
-import lt.itsvaidas.MessagesAPI.interfaces.TranslatableTitle;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-@Translatable(plugin = "ZCAPI", global = true)
-public enum GlobalMessages implements TranslatableLore, TranslatableTitle {
+public enum GlobalMessages {
 
     LANGUAGE__SWITCHED(List.of(
         "Language set to <gold>English",
@@ -82,12 +78,10 @@ public enum GlobalMessages implements TranslatableLore, TranslatableTitle {
         this.lore = lore;
     }
 
-    @Override
     public @Nullable List<String> getLore() {
         return lore;
     }
 
-    @Override
     public @Nullable String getTitle() {
         return line;
     }

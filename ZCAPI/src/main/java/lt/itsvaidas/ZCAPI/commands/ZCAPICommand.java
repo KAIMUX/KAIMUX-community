@@ -4,7 +4,6 @@ import lt.itsvaidas.CommandsAPI.anotations.Command;
 import lt.itsvaidas.CommandsAPI.anotations.Path;
 import lt.itsvaidas.EventsAPI.ServerWipeEvent;
 import lt.itsvaidas.MessagesAPI.MSG;
-import lt.itsvaidas.MessagesAPI.data.MessagesData;
 import lt.itsvaidas.ZCAPI.CommandsHolder;
 import lt.itsvaidas.ZCAPI.Config;
 import lt.itsvaidas.ZCAPI.data.CommandsData;
@@ -35,15 +34,6 @@ public class ZCAPICommand {
     }
 
     @Path(
-            path = "messages reload",
-            description = "Reloads all messages"
-    )
-    public void onReloadMessages(CommandSender sender) {
-        MessagesData.reload(plugin, Config.getLanguagePath());
-        MSG.Send.success(sender, "All messages reloaded");
-    }
-
-    @Path(
             path = "commands reload",
             description = "Reloads all custom commands"
     )
@@ -59,7 +49,7 @@ public class ZCAPICommand {
     )
     public void onAddGuiCommand(CommandSender sender, String command) {
         String id = TOOLS.randomString();
-        TextCommandDTO textCommand = new TextCommandDTO(id, command, false, List.of());
+        TextCommandDTO textCommand = new TextCommandDTO(id, command, false, List.of(), List.of());
         CommandsData.Commands.addCommand(textCommand);
         MSG.Send.success(sender, "GUI command added with ID: " + id);
     }
@@ -71,7 +61,7 @@ public class ZCAPICommand {
     public void onAddTextCommand(CommandSender sender, String command) {
         String id = TOOLS.randomString();
         GUICommandDTO guiCommand = new GUICommandDTO(id, command, List.of(), false, InventoryType.CHEST, command + " Title", 9, Map.of(
-                0, new ItemDTO(0, Material.STONE, 1, "help", "me $player", true, true)
+                0, new ItemDTO(0, Material.STONE, 1, "help", "me $player", "test title", List.of("test", "lore"))
         ));
         CommandsData.GUI.addCommand(guiCommand);
         MSG.Send.success(sender, "Text command added with ID: " + id);

@@ -1,7 +1,5 @@
 package lt.itsvaidas.MessagesAPI;
 
-import lt.itsvaidas.MessagesAPI.interfaces.TranslatableLore;
-import lt.itsvaidas.MessagesAPI.interfaces.TranslatableTitle;
 import lt.itsvaidas.ZCAPI.Main;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.Style;
@@ -43,27 +41,11 @@ public class MSG {
     private static final String ERROR_PREFIX = "<red> ✕ <dark_gray>|<gray> ";
     private static final String INFO_PREFIX = "<yellow> ❖ <dark_gray>|<gray> ";
 
+    public static void actionBar(Player p, String title, Object... args) {
+        p.sendActionBar(stringToComponent(title, args));
+    }
+
     public static class Send {
-        public static void raw(CommandSender sender, Enum<?> message, Object... args) {
-            sendWithPrefix(sender, "", message, args);
-        }
-
-        public static void success(CommandSender sender, Enum<?> message, Object... args) {
-            sendWithPrefix(sender, SUCCESS_PREFIX, message, args);
-        }
-
-        public static void error(CommandSender sender, Enum<?> message, Object... args) {
-            sendWithPrefix(sender, ERROR_PREFIX, message, args);
-        }
-
-        public static void info(CommandSender sender, Enum<?> message, Object... args) {
-            sendWithPrefix(sender, INFO_PREFIX, message, args);
-        }
-
-        public static void raw(CommandSender sender, String message, Object... args) {
-            sender.sendMessage(stringToComponent(message, args));
-        }
-
         public static void success(CommandSender sender, String message, Object... args) {
             sender.sendMessage(stringToComponent(SUCCESS_PREFIX + message, args));
         }
@@ -102,14 +84,6 @@ public class MSG {
         }
     }
 
-    public static Component rawLine(CommandSender sender, Enum<?> message, Object... args) {
-        return stringToComponent(MessagesAPI.getString(sender, message), args);
-    }
-
-    public static List<Component> rawList(CommandSender sender, Enum<?> message, Object... args) {
-        return MessagesAPI.getList(sender, message).stream().map(s -> stringToComponent(s, args)).toList();
-    }
-
     public static @Nullable Component raw(String message, Object... args) {
         if (message == null) return null;
         return stringToComponent(message, args);
@@ -132,12 +106,7 @@ public class MSG {
         return LegacyComponentSerializer.legacySection().serialize(component);
     }
 
-    public static void actionBar(Player player, Enum<?> message, Object... args) {
-        player.sendActionBar(stringToComponent(MessagesAPI.getString(player, message), args));
-    }
-
-    public static void title(Player p, Enum<?> message, long fadeIn, long stay, long fadeOut, Object... args) {
-        List<String> text = MessagesAPI.getList(p, message);
+    public static void title(Player p, List<String> text, long fadeIn, long stay, long fadeOut, Object... args) {
         String titleString = text.isEmpty() ? null : text.get(0);
         String subtitleString = text.size() > 1 ? text.get(1) : null;
 
@@ -162,33 +131,6 @@ public class MSG {
 
     public static void rawTitle(Player player, String s, String s1, int i, int i1, int i2) {
         player.showTitle(Title.title(stringToComponent(s), stringToComponent(s1), Title.Times.times(Duration.ofMillis(i), Duration.ofMillis(i1), Duration.ofMillis(i2))));
-    }
-
-    private static void sendWithPrefix(CommandSender sender, String prefix, Enum<?> message, Object... args) {
-        boolean hasTitle = TranslatableTitle.class.isAssignableFrom(message.getClass());
-        boolean hasLore = TranslatableLore.class.isAssignableFrom(message.getClass());
-
-        if (hasTitle && hasLore) {
-            String title = ((TranslatableTitle) message).getTitle();
-            List<String> lore = ((TranslatableLore) message).getLore();
-
-            if (title != null && lore == null) {
-                sender.sendMessage(stringToComponent(prefix + MessagesAPI.getString(sender, message), args));
-                return;
-            } else if (title == null && lore != null) {
-                MessagesAPI.getList(sender, message).stream().map(s -> stringToComponent(prefix + s, args))
-                    .forEach(sender::sendMessage);
-            } else {
-                sender.sendMessage(stringToComponent(prefix + MessagesAPI.getString(sender, message), args));
-                MessagesAPI.getList(sender, message).stream().map(s -> stringToComponent(prefix + s, args))
-                        .forEach(sender::sendMessage);
-            }
-        } else if (hasLore) {
-            MessagesAPI.getList(sender, message).stream().map(s -> stringToComponent(prefix + s, args))
-                    .forEach(sender::sendMessage);
-        } else {
-            sender.sendMessage(stringToComponent(prefix + MessagesAPI.getString(sender, message), args));
-        }
     }
 
     private static Component stringToComponent(@NotNull String string, Object... args) {

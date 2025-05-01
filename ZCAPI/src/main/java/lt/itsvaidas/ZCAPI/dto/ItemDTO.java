@@ -3,6 +3,7 @@ package lt.itsvaidas.ZCAPI.dto;
 import org.bukkit.Material;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
 public class ItemDTO {
     private final int slot;
@@ -10,17 +11,17 @@ public class ItemDTO {
     private final int amount;
     private final @Nullable String command;
     private final @Nullable String consoleCommand;
-    private final boolean hasTitle;
-    private final boolean hasLore;
+    private final String title;
+    private final List<String> lore;
 
-    public ItemDTO(int slot, Material material, int amount, @Nullable String command, @Nullable String consoleCommand, boolean hasTitle, boolean hasLore) {
+    public ItemDTO(int slot, Material material, int amount, @Nullable String command, @Nullable String consoleCommand, String title, List<String> lore) {
         this.slot = slot;
         this.material = material;
         this.amount = amount;
         this.command = command;
         this.consoleCommand = consoleCommand;
-        this.hasTitle = hasTitle;
-        this.hasLore = hasLore;
+        this.title = title;
+        this.lore = lore;
     }
 
     public int getSlot() {
@@ -39,12 +40,12 @@ public class ItemDTO {
         return command;
     }
 
-    public boolean hasTitle() {
-        return hasTitle;
+    public String title() {
+        return title;
     }
 
-    public boolean hasLore() {
-        return hasLore;
+    public List<String> lore() {
+        return lore;
     }
 
     public @Nullable String getConsoleCommand() {

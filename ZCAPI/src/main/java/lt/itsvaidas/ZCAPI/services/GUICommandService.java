@@ -1,7 +1,6 @@
 package lt.itsvaidas.ZCAPI.services;
 
 import lt.itsvaidas.MessagesAPI.MSG;
-import lt.itsvaidas.MessagesAPI.MessagesAPI;
 import lt.itsvaidas.ZCAPI.CommandsHolder;
 import lt.itsvaidas.ZCAPI.builders.BItem;
 import lt.itsvaidas.ZCAPI.dto.*;
@@ -25,8 +24,8 @@ public class GUICommandService implements Listener {
             inv.setItem(item.getSlot(),
                     BItem.b(
                         item.getMaterial(),
-                        item.hasLore() ? MSG.raw(MessagesAPI.getString(player, false, "ZCAPI", command.getID() + ".items." + item.getSlot() + ".title")) : null,
-                        item.hasTitle() ? MSG.raw(MessagesAPI.getList(player, false, "ZCAPI", command.getID() + ".items." + item.getSlot() + ".lore")) : null
+                        item.title(),
+                        item.lore()
                     ).build()
             );
         }

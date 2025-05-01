@@ -32,8 +32,6 @@ import java.util.UUID;
 
 public abstract class GUI implements Listener {
 
-	private final Map<UUID, Integer> errors = new HashMap<>();
-
 	private final Plugin plugin;
 	private final Component inventoryName;
 	private final InventoryType type;
@@ -155,25 +153,5 @@ public abstract class GUI implements Listener {
 		if (close.isCancalled()) {
 			Bukkit.getScheduler().scheduleSyncDelayedTask(this.plugin, () -> player.openInventory(e.getInventory()), 2L);
 		}
-	}
-
-	public void setMessage(CInventoryClick e, Enum<?> message, NamedTextColor color, Object... args) {
-		ItemStack item = e.getItem();
-
-		if (item == null) return;
-
-		ItemMeta meta = item.getItemMeta();
-		Component tempDisplayName = meta.displayName();
-		meta.displayName(MSG.rawLine(e.getPlayer(), message, args).color(color));
-		item.setItemMeta(meta);
-
-		Bukkit.getScheduler().runTaskLater(this.plugin, () -> {
-			meta.displayName(tempDisplayName);
-			item.setItemMeta(meta);
-		}, 40L);
-	}
-
-	public void setMessage(CInventoryClick e, Enum<?> message, Object... args) {
-		setMessage(e, message, NamedTextColor.RED, args);
 	}
 }

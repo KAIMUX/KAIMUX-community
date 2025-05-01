@@ -55,12 +55,4 @@ public class BHeadItem extends BItem {
     public static BHeadItem b(@Nullable Component name, @Nullable List<Component> lore, @NotNull String texture, @NotNull String signature) {
         return new BHeadItem(name, lore, texture, signature);
     }
-
-    public static BHeadItem b(@NotNull Player p, @Nullable Enum<?> name, @NotNull String texture, @NotNull String signature, Object... args) {
-        return new BHeadItem(MSG.rawLine(p, name, args), null, texture, signature);
-    }
-
-    public static BHeadItem b(@NotNull Player p, @Nullable Enum<?> name, @Nullable Enum<?> lore, @NotNull String texture, @NotNull String signature, Object... args) {
-        return new BHeadItem(MSG.rawLine(p, name, args), MSG.rawList(p, lore, args), texture, signature);
-    }
 }

@@ -6,7 +6,6 @@ import lt.itsvaidas.MenuAPI.geyser.interfaces.ICloseForm;
 import lt.itsvaidas.MenuAPI.geyser.interfaces.ICustomElement;
 import lt.itsvaidas.MenuAPI.geyser.interfaces.IForm;
 import lt.itsvaidas.MenuAPI.geyser.interfaces.ISubmitForm;
-import lt.itsvaidas.MessagesAPI.MessagesAPI;
 import org.bukkit.entity.Player;
 import org.geysermc.cumulus.form.Form;
 import org.geysermc.floodgate.api.FloodgateApi;
@@ -43,7 +42,7 @@ public class CustomForm implements IForm {
 
         for (ICustomElement element : elements) {
             switch (element) {
-                case Dropdown dropdown -> builder.dropdown(MessagesAPI.getString(player, dropdown.getText()), dropdown.getStringOptions() == null ? Stream.of(dropdown.getEnumOptions()).map(e -> MessagesAPI.getString(player, e)).toArray(String[]::new) : dropdown.getStringOptions());
+                case Dropdown dropdown -> builder.dropdown(dropdown.getText(), dropdown.getStringOptions());
                 case Input input -> builder.input(input.getText(), input.getPlaceholder());
                 default -> throw new IllegalStateException("Unexpected value: " + element);
             }

@@ -5,8 +5,6 @@ import lt.itsvaidas.EconomyAPI.EconomyAPI;
 import lt.itsvaidas.EconomyAPI.listeners.EconomyServiceRegisterListener;
 import lt.itsvaidas.MenuAPI.EnterValueGUI;
 import lt.itsvaidas.MessagesAPI.MSG;
-import lt.itsvaidas.MessagesAPI.MessagesAPI;
-import lt.itsvaidas.MessagesAPI.data.MessagesData;
 import lt.itsvaidas.ZCAPI.commands.*;
 import lt.itsvaidas.ZCAPI.data.CommandsData;
 import lt.itsvaidas.ZCAPI.data.PlayerUUIDData;
@@ -40,12 +38,9 @@ public class Main extends JavaPlugin implements Listener {
 		instance = this;
 
 		PlayerUUIDData.load(this);
-		MessagesData.load(this, Config.getLanguagePath());
-		MessagesAPI.init(this, Config.getServer());
 		CommandsData.load(this);
 
 		setupEconomy();
-		registerMessages();
 		registerCommands();
 		registerListeners();
 	}
@@ -58,8 +53,6 @@ public class Main extends JavaPlugin implements Listener {
 		Bukkit.getPluginManager().registerEvents(new EntityDamageByPlayerListener(), this);
 		Bukkit.getPluginManager().registerEvents(new RemovePDCFromBlockListener(), this);
 		Bukkit.getPluginManager().registerEvents(new PlayerCommandListener(), this);
-		Bukkit.getPluginManager().registerEvents(new ServerLoadListener(Config.getServer()), this);
-		Bukkit.getPluginManager().registerEvents(new GeyserPlayerJoinListener(), this);
 		Bukkit.getPluginManager().registerEvents(new GUICommandService(), this);
 
 		Bukkit.getPluginManager().registerEvents(new EnterValueGUI(), this);
@@ -82,20 +75,9 @@ public class Main extends JavaPlugin implements Listener {
 		MSG.log(Level.INFO, "[ZCAPI] [PluginLoad] Registered economy service from " + economy.getName());
 	}
 
-	private void registerMessages() {
-		MessagesAPI.register(GlobalMessages.class);
-
-		for (String line : Config.getStaticMessages()) {
-			String defaultMessage = Config.getMessage(line);
-			MessagesAPI.register(true, "ZCAPI", "Static Messages." + line, defaultMessage);
-		}
-	}
-
 	private void registerCommands() {
 		CommandRegister register = new CommandRegister(this);
 		register.register(new LogsCommand());
-		register.register(new LanguageCommand(this));
-		register.register(new SendTCommand());
 		register.register(new ZCAPICommand(this));
 
 		for (CommandDTO command : CommandsHolder.getCommands())

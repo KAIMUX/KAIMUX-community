@@ -27,7 +27,7 @@ public class SimpleForm implements IForm {
                 .title(this.title);
 
         for (Button button : buttons) {
-            Component text = button.getStringText() == null ? MSG.rawLine(player, button.getEnumText()) : MSG.raw(button.getStringText());
+            Component text = MSG.raw(button.getStringText());
             String plainText = MSG.toLegacy(text);
             builder.button(plainText);
         }

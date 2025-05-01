@@ -21,7 +21,6 @@ import lt.itsvaidas.CommandsAPI.anotations.Path;
 import lt.itsvaidas.CommandsAPI.enums.ArgumentType;
 import lt.itsvaidas.CommandsAPI.exceptions.CommandExecuteException;
 import lt.itsvaidas.MessagesAPI.MSG;
-import lt.itsvaidas.MessagesAPI.MessagesAPI;
 import lt.itsvaidas.ZCAPI.GlobalMessages;
 import lt.itsvaidas.ZCAPI.tools.PlayerUUID;
 import net.kyori.adventure.key.Key;
@@ -156,10 +155,6 @@ public class CommandRegister {
                 if (method.isAnnotationPresent(Path.class)) {
                     Path executable = method.getAnnotation(Path.class);
                     String methodDescription = executable.description();
-                    boolean isTranslatable = executable.translatable();
-
-                    if (isTranslatable)
-                        MessagesAPI.register(true, plugin.getName(),  "Command Description." + baseCommand + "." + method.getName(), methodDescription);
 
                     if (executable.path().equalsIgnoreCase("")) {
                         root.executes(context -> executeCommand(clazz, method, context));
@@ -378,7 +373,7 @@ public class CommandRegister {
                             if (source.getSender() instanceof Player player) {
                                 parameters[i] = player;
                             } else {
-                                throw new CommandExecuteException(GlobalMessages.ERROR__PLAYER_ONLY);
+                                throw new CommandExecuteException(GlobalMessages.ERROR__PLAYER_ONLY.getTitle());
                             }
                         }
                         continue;
@@ -388,35 +383,35 @@ public class CommandRegister {
                     } else if (parameterType.equals(Player.class)) {
                         Player player = Bukkit.getPlayer(context.getArgument(method.getParameters()[i].getName(), String.class));
                         if (player == null)
-                            throw new CommandExecuteException(GlobalMessages.ERROR__PLAYER_NOT_ONLINE);
+                            throw new CommandExecuteException(GlobalMessages.ERROR__PLAYER_NOT_ONLINE.getTitle());
                         parameters[i] = player;
                     } else if (parameterType.equals(OfflinePlayer.class)) {
                         UUID uuid = PlayerUUID.getUUID(context.getArgument(method.getParameters()[i].getName(), String.class));
                         if (uuid == null)
-                            throw new CommandExecuteException(GlobalMessages.ERROR__PLAYER_NOT_FOUND);
+                            throw new CommandExecuteException(GlobalMessages.ERROR__PLAYER_NOT_FOUND.getTitle());
                         parameters[i] = Bukkit.getOfflinePlayer(uuid);
                     } else if (parameterType.isEnum()) {
                         parameters[i] = Enum.valueOf((Class<Enum>) parameterType, context.getArgument(method.getParameters()[i].getName(), String.class));
                     } else if (parameterType.equals(Enchantment.class)) {
                         Enchantment enchantment = RegistryAccess.registryAccess().getRegistry(RegistryKey.ENCHANTMENT).get(Key.key(context.getArgument(method.getParameters()[i].getName(), String.class)));
                         if (enchantment == null)
-                            throw new CommandExecuteException(GlobalMessages.ERROR__ENCHANTMENT_NOT_FOUND);
+                            throw new CommandExecuteException(GlobalMessages.ERROR__ENCHANTMENT_NOT_FOUND.getTitle());
                         parameters[i] = enchantment;
                     } else if (parameterType.equals(World.class)) {
                         World world = Bukkit.getWorld(context.getArgument(method.getParameters()[i].getName(), String.class));
                         if (world == null)
-                            throw new CommandExecuteException(GlobalMessages.ERROR__WORLD_NOT_FOUND);
+                            throw new CommandExecuteException(GlobalMessages.ERROR__WORLD_NOT_FOUND.getTitle());
                         parameters[i] = world;
                     } else {
                         parameters[i] = context.getArgument(method.getParameters()[i].getName(), parameterType);
                     }
                 } catch (Exception e) {
                     if (e.getMessage() != null && !e.getMessage().startsWith("No such argument") && e instanceof IllegalArgumentException) {
-                        MSG.Send.error(source.getSender(), GlobalMessages.INCORRECT_PARAMETER, method.getParameters()[i].getName());
+                        MSG.Send.error(source.getSender(), GlobalMessages.INCORRECT_PARAMETER.getTitle(), method.getParameters()[i].getName());
                     }
 
                     if (e instanceof CommandExecuteException argumentNotFoundException) {
-                        MSG.Send.error(source.getSender(), argumentNotFoundException.getEnumMessage());
+                        MSG.Send.error(source.getSender(), argumentNotFoundException.getMessage());
                         return com.mojang.brigadier.Command.SINGLE_SUCCESS;
                     }
 
@@ -486,9 +481,7 @@ public class CommandRegister {
             if (segment.getSubCommands().isEmpty()) {
                 Method method = segment.getMethod();
                 Path executable = method.getAnnotation(Path.class);
-                String description = executable.translatable() ?
-                    MessagesAPI.getString(sender, true, plugin.getName(), "Command Description." + baseCommand + "." + method.getName())
-                    : executable.description();
+                String description = executable.description();
                 MSG.command(sender, "/" + prefix + " " + key, description);
             } else {
                 showHelp(sender, baseCommand, prefix + " " + key, segment.getSubCommands());

@@ -1,7 +1,6 @@
 package lt.itsvaidas.ZCAPI.data;
 
 import lt.itsvaidas.MessagesAPI.MSG;
-import lt.itsvaidas.MessagesAPI.MessagesAPI;
 import lt.itsvaidas.ZCAPI.CommandsHolder;
 import lt.itsvaidas.ZCAPI.dto.GUICommandDTO;
 import lt.itsvaidas.ZCAPI.dto.ItemDTO;
@@ -41,8 +40,8 @@ public class CommandsData {
 						String command = pd.getString(ID + ".command");
 						List<String> aliases = pd.isSet(ID + ".aliases") ? pd.getStringList(ID + ".aliases") : List.of();
 						boolean register = pd.getBoolean(ID + ".register");
-                        MessagesAPI.register(true, "ZCAPI", "Commands.Text." + ID, List.of("Pakeisti per ZCMessages"));
-						CommandsHolder.addCommand(new TextCommandDTO(ID, command, register, aliases));
+						List<String> text = pd.getStringList(ID + ".text");
+						CommandsHolder.addCommand(new TextCommandDTO(ID, command, register, aliases, text));
 					}
 				}
 			}
@@ -53,6 +52,7 @@ public class CommandsData {
 			FileConfiguration pd = YamlConfiguration.loadConfiguration(f);
 			pd.set(textCommand.getID() + ".command", textCommand.getCommand());
 			pd.set(textCommand.getID() + ".register", textCommand.isRegisterd());
+			pd.set(textCommand.getID() + ".text", textCommand.getText());
 			try {
 				pd.save(f);
 			} catch (IOException e) {
@@ -90,17 +90,9 @@ public class CommandsData {
 								pd.getInt(ID + ".items." + slot + ".amount", -1),
 								pd.getString(ID + ".items." + slot + ".command"),
 								pd.getString(ID + ".items." + slot + ".consoleCommand"),
-								pd.getBoolean(ID + ".items." + slot + ".has title"),
-								pd.getBoolean(ID + ".items." + slot + ".has lore")
+								pd.getString(ID + ".items." + slot + ".title"),
+								pd.getStringList(ID + ".items." + slot + ".lore")
 							);
-
-							if (item.hasTitle())
-                                MessagesAPI.register(true, "ZCAPI", "Commands.GUI." + ID + ".items." + slot + ".title", "Pakeisti per ZCMessages");
-							if (item.hasLore())
-                                MessagesAPI.register(true, "ZCAPI", "Commands.GUI." + ID + ".items." + slot + ".lore", List.of(
-                                    "Pakeisti per ZCMessages",
-                                    "Pakeisti per ZCMessages"
-                                ));
 
 							items.put(slot, item);
 						}
@@ -124,8 +116,8 @@ public class CommandsData {
 				pd.set(guiCommand.getID() + ".items." + item.getSlot() + ".amount", item.getAmount());
 				pd.set(guiCommand.getID() + ".items." + item.getSlot() + ".command", item.getCommand());
 				pd.set(guiCommand.getID() + ".items." + item.getSlot() + ".consoleCommand", item.getConsoleCommand());
-				pd.set(guiCommand.getID() + ".items." + item.getSlot() + ".has title", item.hasTitle());
-				pd.set(guiCommand.getID() + ".items." + item.getSlot() + ".has lore", item.hasLore());
+				pd.set(guiCommand.getID() + ".items." + item.getSlot() + ".title", item.title());
+				pd.set(guiCommand.getID() + ".items." + item.getSlot() + ".lore", item.lore());
 			}
 			try {
 				pd.save(f);

@@ -48,7 +48,7 @@ public class LOCATION {
     	using.put(uuid, System.currentTimeMillis()+1000L*5L);
     	
     	if (teleportInstant || p.hasPermission("survivalcore.tpinst")) {
-    		MSG.Send.success(p, GlobalMessages.TELEPORT__INSTANT);
+    		MSG.Send.success(p, GlobalMessages.TELEPORT__INSTANT.getTitle());
     		if (teleportOnGround)
     			p.teleportAsync(getTopYLocation(l, teleportFromTop), PlayerTeleportEvent.TeleportCause.COMMAND);
     		else
@@ -62,11 +62,11 @@ public class LOCATION {
     	else
     		teleportTo = l;
     	
-		MSG.Send.success(p, GlobalMessages.TELEPORT__LOADING);
+		MSG.Send.success(p, GlobalMessages.TELEPORT__LOADING.getTitle());
     	if (!p.hasPermission("survivalcore.tp.move") || p.getWorld().getName().equalsIgnoreCase("spawn"))
-    		MSG.Send.success(p, GlobalMessages.TELEPORT__TELEPORTING_CANT_MOVE);
+    		MSG.Send.success(p, GlobalMessages.TELEPORT__TELEPORTING_CANT_MOVE.getTitle());
     	else
-    		MSG.Send.success(p, GlobalMessages.TELEPORT__TELEPORTING_CAN_MOVE);
+    		MSG.Send.success(p, GlobalMessages.TELEPORT__TELEPORTING_CAN_MOVE.getTitle());
     	
     	new BukkitRunnable() {
     		int sk = 3;
@@ -95,14 +95,14 @@ public class LOCATION {
                         )
                                 || !p.getLocation().getWorld().getName().equals(original.getWorld().getName())
                 ) {
-                    MSG.Send.success(p, GlobalMessages.TELEPORT__TELEPORTING_CANCELLED);
+                    MSG.Send.success(p, GlobalMessages.TELEPORT__TELEPORTING_CANCELLED.getTitle());
                     using.remove(uuid);
                     this.cancel();
                     return;
                 }
 
                 if (sk <= 0 || p.hasPermission("survivalcore.tpinst")) {
-					MSG.actionBar(p, GlobalMessages.TELEPORT__COUNTDOWN, "0");
+					MSG.actionBar(p, GlobalMessages.TELEPORT__COUNTDOWN.getTitle(), "0");
 					p.teleportAsync(teleportTo, PlayerTeleportEvent.TeleportCause.COMMAND);
 			    	using.remove(uuid);
 					this.cancel();
@@ -110,7 +110,7 @@ public class LOCATION {
 				}
 
 				if (sk > 0 && !p.hasPermission("survivalcore.tpinst")) {
-					MSG.actionBar(p, GlobalMessages.TELEPORT__COUNTDOWN, String.valueOf(sk));
+					MSG.actionBar(p, GlobalMessages.TELEPORT__COUNTDOWN.getTitle(), String.valueOf(sk));
 				}
 				sk--;
 			}
