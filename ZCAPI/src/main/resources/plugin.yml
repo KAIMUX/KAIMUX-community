@@ -1,0 +1,6 @@
+name: ZCAPI
+api-version: 1.21.3
+main: lt.itsvaidas.ZCAPI.Main
+version: 1.0
+author: AsVaidas
+softdepend: [floodgate, PlaceholderAPI]

@@ -1,0 +1,8 @@
+Server: "Random"
+Language path: "./"
+
+#No spaces in keys
+Static messages:
+  VotedForServer: "<purple> ♢ <dark_gray>| <gray>You have successfully voted and received <green>5 COINS</green>!"
+  DailyPrize: "<gold> ✫ <dark_gray>| <yellow>Congratulations on receiving the daily prize. <gold>☺"
+  VoteParty: "<purple> ♢ <dark_gray>| <gold>VoteParty: <gray>Everyone in the server gets <green>random items! <gold>/vote"
