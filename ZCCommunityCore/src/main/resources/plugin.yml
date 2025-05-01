@@ -1,0 +1,6 @@
+name: ZCCommunityCore
+api-version: 1.21.4
+main: lt.itsvaidas.zccommunitycore.Main
+version: 1.0
+author: ItsVaidas
+softdepend: [floodgate, PlaceholderAPI]
