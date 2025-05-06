@@ -1,0 +1,6 @@
+name: ZCTab
+api-version: 1.21.3
+main: lt.itsvaidas.ZCTab.Main
+version: 1.0
+author: AsVaidas
+softdepend: [PlaceholderAPI, ZCAPI, ZCHolograms]

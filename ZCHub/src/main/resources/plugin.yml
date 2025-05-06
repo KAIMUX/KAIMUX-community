@@ -1,0 +1,11 @@
+name: ZCHub
+api-version: 1.21.3
+main: lt.itsvaidas.ZCHub.Main
+version: 1.0
+author: AsVaidas
+softdepend: [PlaceholderAPI, ZCAPI]
+commands:
+   hub:
+      description: Open Hub GUI
+      usage: /<command>
+      aliases: [lobby]

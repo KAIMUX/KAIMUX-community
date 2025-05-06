@@ -1,0 +1,62 @@
+Hub Inventory:
+    "11":
+        Material: OAK_SAPLING
+        Server: "Skyblock"
+        Name: "<reset><blue>☁ <dark_blue><bold>SkyBlock"
+        Lore:
+        - '<gray>Live on an island alone or with friends,'
+        - '<gray>overcome all challenges, expand the'
+        - '<gray>island territory, be the richest and most'
+        - '<gray>influential player on the entire server,'
+        - '<gray>join now and start your adventure here!'
+    "4":
+        Material: DIAMOND_SWORD
+        Server: "Boxpvp"
+        Name: "<reset><gold>⚔ <red><bold>BoxPVP"
+        Lore:
+        - '<gray>Improve your PVP skills, fight with other'
+        - '<gray>players, upgrade your armor in a fast-paced'
+        - '<gray>action-packed PVP server! Join now!'
+    "15":
+        Material: GRASS_BLOCK
+        Server: "Survival"
+        Name: "<reset><red>🗡 <dark_green><bold>Survival"
+        Lore:
+        - '<gray>Will you be able to survive in the wild'
+        - '<gray>and become the best? If you think so,'
+        - '<gray>start your survival journey in the survival'
+        - '<gray>type world now, build houses, get the highest'
+        - '<gray>rank, be the richest of all, be known as a'
+        - '<gray>PVP ace!'
+    "22":
+        Material: BELL
+        Server: "Events"
+        Name: "<reset><yellow>♬ <gold><bold>Events"
+        Lore:
+        - '<gray>Try out frequently held events and win prizes!'
+        - '<gray>Participate in various events organized by the'
+        - '<gray>server administration! Hide and seek, wars,'
+        - '<gray>challenges and many other events, every weekend!'
+    "29":
+        Material: GOLD_BLOCK
+        Server: "Creative"
+        Name: "<reset><gold>⚒ <yellow><bold>Creative"
+        Lore:
+        - '<gray>Let your creativity shine in the creative'
+        - '<gray>mode server! Build with friends or alone.'
+        - '<gray>Win various prizes by participating in'
+        - '<gray>announced contests!'
+    "40":
+        Material: IRON_BARS
+        Server: "Prison"
+        Name: "<reset><gray># <dark_red><bold>Prison"
+        Lore:
+        - '<gray>Are you ready to spend time behind bars'
+        - '<gray>and test your survival skills in a prison'
+        - '<gray>type world? Start your journey now and'
+        - '<gray>experience the challenges of prison life.'
+        - '<gray>Complete tasks, level up and become a Guard!'
+    "33":
+        Material: GLOWSTONE
+        Server: "Comunity"
+        Name: "<reset><green>☀ <green><bold>Comunity"

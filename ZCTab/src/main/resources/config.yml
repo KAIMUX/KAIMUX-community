@@ -1,0 +1,26 @@
+Sorting:
+    '1':
+        priority: 1
+        placeholder: '%zc_perksort%'
+        type: 'A_TO_Z'
+    '2':
+        priority: 2
+        placeholder: '%zcafk%'
+        type: 'EXIST'
+    '3':
+        priority: 3
+        placeholder: '%zc_ranksort%'
+        type: 'A_TO_Z'
+    '4':
+        priority: 3
+        placeholder: '%player_name%'
+        type: 'A_TO_Z'
+
+Name tag:
+    tab:
+        prefix: '%zc_prefix2%%zcservices_legal%%zctops_stars%<gray>'
+        suffix: '%zcafk% &3%zc_symbol% <dark_gray>%zcmsg_lang%'
+    tag:
+        above: '<gold>%zclana_tag%'
+        prefix: '%zc_prefix2%<gray>'
+        below: '&3%zc_symbol% <dark_gray>| &3%health% <red>❤ <dark_gray>| &3%ping% <gold>⚡'
