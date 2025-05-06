@@ -30,25 +30,18 @@ public class SpawnerEventsListener implements Listener {
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
     public void onBlockBreak(BlockBreakEvent e) {
-        e.getPlayer().sendMessage("1");
         if (!(e.getBlock().getState() instanceof CreatureSpawner spawner)) return;
         ItemStack item = e.getPlayer().getInventory().getItemInMainHand();
-        e.getPlayer().sendMessage("2 " + pickaxes.isTagged(item.getType()) + " " + item.getEnchantments().containsKey(Enchantment.SILK_TOUCH));
         if (pickaxes.isTagged(item.getType()) && item.getEnchantments().containsKey(Enchantment.SILK_TOUCH)) {
 
-            e.getPlayer().sendMessage("3");
             int chance = TOOLS.randomInt(10, 15);
             int current = TOOLS.randomInt(0, 100);
-            e.getPlayer().sendMessage("4 " + chance + " " + current);
             if (current < chance) {
-                e.getPlayer().sendMessage("5");
                 EntityType type = spawner.getSpawnedType();
                 if (type == null) type = EntityType.PIG;
-                e.getPlayer().sendMessage("6");
 
                 ItemStack spawnerItem = BItem.b(Material.SPAWNER,  MSG.raw("<arg0> Spawner", Component.translatable(type))).key(plugin, "spawner", type.toString()).build();
                 e.getBlock().getWorld().dropItem(e.getBlock().getLocation(), spawnerItem);
-                e.getPlayer().sendMessage("7");
             }
         }
     }
